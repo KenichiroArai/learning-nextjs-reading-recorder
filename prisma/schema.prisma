@@ -13,13 +13,13 @@ datasource db {
 }
 
 model reviews {
-  id        String   @id // レビューコード
-  title     String // 書名
-  author    String // 著者
-  price     Int // 価格
-  publisher String // 出版社
-  published String // 刊行日
-  image     String // レビュー日時
-  read      DateTime @default(now()) // レビュー本体
+  id        String   @id              // レビューコード
+  title     String                    // 書名
+  author    String                    // 著者
+  price     Int                       // 価格
+  publisher String                    // 出版社
+  published String                    // 刊行日
+  image     String                    // レビュー日時
+  read      DateTime @default(now())  // レビュー本体
   memo      String
 }
