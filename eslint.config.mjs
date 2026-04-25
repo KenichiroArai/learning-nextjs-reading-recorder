@@ -11,7 +11,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: ['scr/generated/**/*'],
+    ignores: ['scr/generated/prisma/**/*'],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
