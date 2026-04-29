@@ -11,6 +11,12 @@ export type Book = {
     image: string;
 };
 
+// Book型をもとにReview型を定義
+export type Review = Book & {
+    read: Date;
+    memo: string;
+};
+
 // レイアウトのProps型
 export type LayoutProps = Readonly<{
     children: ReactNode;
