@@ -22,6 +22,32 @@ export type LayoutProps = Readonly<{
     children: ReactNode;
 }>;
 
+// Google Books APIからの応答の部分型
+export type BookApi = {
+    id: string,
+    volumeInfo: {
+        title: string;
+        authors: string[];
+        publisher: string;
+        publishedDate: string;
+        imageLinks: {
+            smallThumbnail: string | null;
+        };
+    },
+    saleInfo: {
+        listPrice: {
+            amount: number;
+        };
+    };
+};
+
+// ページコンポーネントのProps型
+export type BookResultProps = Readonly<{
+    params: Promise<{
+        keyword?: string[];
+    }>
+}>;
+
 // BookDetails/LinkedBookDetailsコンポーネントのProps定義
 export type BookDetailsProps = Readonly<{
     index?:     number;
