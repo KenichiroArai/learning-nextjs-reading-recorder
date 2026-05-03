@@ -1,0 +1,47 @@
+'use server';
+
+import { redirect } from 'next/navigation';
+import prisma from '@/lib/prisma';
+import { getBookById } from '@/lib/getters';
+import { revalidatePath } from 'next/cache';
+
+// フォームからの入力値をデータベースに登録
+export async function addReview(data: FormData) {
+    const book = await getBookById(data.get('id') as string);
+    const input = {
+        title: book.title,
+        author: book.author,
+        price: Number(book.price),
+        publisher: book.publisher,
+        published: book.published,
+        image: book.image || '',
+        read: new Date(data.get('read') as string),
+        memo: data.get('memo') as string
+    };
+
+    // 新規データであれば登録、既存データであれば更新
+    await prisma.reviews.upsert({
+        update: input,
+        create: Object.assign({}, input, { id: data.get('id') as string }),
+        where: {
+            id: data.get('id') as string
+        }
+    });
+    // キャッシュを廃棄
+    revalidatePath('/');
+    // 処理成功の後はトップページにリダイレクト
+    redirect('/');
+}
+
+// 削除ボタンで指定のレビュー情報を削除
+export async function removeReview(data: FormData) {
+    await prisma.reviews.delete({
+        where: {
+            id: data.get('id') as string
+        }
+    });
+    // キャッシュを廃棄
+    revalidatePath('/');
+    // 処理成功の後はトップページにリダイレクト
+    redirect('/');
+}
