@@ -40,3 +40,19 @@ export async function getBooksByKeyword(keyword: string): Promise<Book[]> {
     }
     return books;
 }
+
+// id値をキーに書籍情報を取得
+export async function getBookById(id: string): Promise<Book> {
+    const res = await fetch(`${API_URL}/${id}`, { cache: 'no-store' });
+    const result = await res.json();
+    return createBook(result);
+}
+
+// id値をキーにレビュー情報を取得
+export async function getReviewById(id: string): Promise<Review | null> {
+    return await prisma.reviews.findUnique({
+        where: {
+            id: id
+        }
+    });
+}
