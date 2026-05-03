@@ -48,6 +48,22 @@ export type BookResultProps = Readonly<{
     }>
 }>;
 
+// ページコンポーネントのProps型
+export type EditPageProps = Readonly<{
+    params: Promise<{
+        id: string;
+    }>
+}>;
+
+// FormEditコンポーネントのProps型
+export type FormEditProps = Readonly<{
+    src: {
+        id: string;
+        read: string;
+        moemo?: string;
+    }
+}>;
+
 // BookDetails/LinkedBookDetailsコンポーネントのProps定義
 export type BookDetailsProps = Readonly<{
     index?:     number;
