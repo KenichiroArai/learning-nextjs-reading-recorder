@@ -31,11 +31,13 @@ export function createBook(book: BookApi): Book {
 
 // 引数keywordをキーにGoogle Books APIから書籍を検索
 export async function getBooksByKeyword(keyword: string): Promise<Book[]> {
-    const res = await fetch(`${API_URL}?q=${keyword}&langRestrict=ja&maxResults=20&printType=books`, { cache: 'no-store' });
+    const API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
+    const url = `${API_URL}?q=${keyword}&langRestrict=ja&maxResults=20&printType=books&key=${API_KEY}`;
+    const res = await fetch(url, { cache: 'no-store' });
     const result = await res.json();
     const books = [];
     // 応答内容をオブジェクト配列に詰め替え
-    for (const b of result.itmes) {
+    for (const b of result.items) {
         books.push(createBook(b));
     }
     return books;

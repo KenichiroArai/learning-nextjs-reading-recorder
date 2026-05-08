@@ -17,7 +17,7 @@ export default function FormEdit({ src: { id, read, memo } }: FormEditProps) {
                     className="block gb-gray-100 border-2 border-gray-600 w-full rouneded foucs:gb-white focurs:outline-none focus:border-red-500" defaultValue={memo}></textarea>
             </div>
             <button type="submit"
-                className="gb-blue-600 text-white rounded px-4 py-2 mr-2 hover:gb-blue-500">
+                className="bg-blue-600 text-white rounded px-4 py-2 mr-2 hover:gb-blue-500">
                     登録
             </button>
             {/* [削除]ボタンでremoveReivew関数を呼び出し */}

@@ -60,7 +60,7 @@ export type FormEditProps = Readonly<{
     src: {
         id: string;
         read: string;
-        moemo?: string;
+        memo?: string;
     }
 }>;
 

@@ -1,19 +1,21 @@
 import { PrismaClient } from '@/generated/prisma/client'
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
-// globalオブジェクトにprismaを持たせるための型キャスト
-const globalForPrisma = global as unknown as { prisma: PrismaClient }
+const globalForPrisma = global as unknown as {
+  prisma: PrismaClient | undefined
+}
 
-// global.prisma上にPrismaクライアントが存在すれば再利用
-// 存在しなければ新しく生成（v7ではaccelerateUrlが必須）
+const adapter = new PrismaBetterSqlite3({
+  url: process.env.DATABASE_URL!,
+})
+
 const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
-    accelerateUrl: process.env.DATABASE_URL!, // 接続URL（.envから取得）
-    log: ['query'], // クエリログを出力
+    adapter,
+    log: ['query'],
   })
 
-// 非Production環境ではglobalForPrisma.prismaにオブジェクトを格納
-// → ホットリロード時のインスタンス多重生成を防ぐ
 if (process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prisma
 }
