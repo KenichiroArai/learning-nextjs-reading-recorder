@@ -9,7 +9,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+
+  // SQLiteを使用する場合
+  // provider = "sqlite"
+
+// PostgreSQLを使用する場合
+  provider = "postgresql"
 }
 
 model reviews {
