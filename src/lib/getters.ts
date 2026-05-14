@@ -31,8 +31,8 @@ export function createBook(book: BookApi): Book {
 
 // 引数keywordをキーにGoogle Books APIから書籍を検索
 export async function getBooksByKeyword(keyword: string): Promise<Book[]> {
-    const API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
-    const url = `${API_URL}?q=${keyword}&langRestrict=ja&maxResults=20&printType=books&key=${API_KEY}`;
+    const url = `${API_URL}?q=${keyword}&langRestrict=ja&maxResults=20&printType=books&key=${process.env.GOOGLE_BOOKS_API_KEY}`;
+    console.log(`getters.ts-getBooksByKeyword()：url=[${url}]`);
     const res = await fetch(url, { cache: 'no-store' });
     const result = await res.json();
     const books = [];
@@ -45,7 +45,9 @@ export async function getBooksByKeyword(keyword: string): Promise<Book[]> {
 
 // id値をキーに書籍情報を取得
 export async function getBookById(id: string): Promise<Book> {
-    const res = await fetch(`${API_URL}/${id}`, { cache: 'no-store' });
+    const url = `${API_URL}/${id}?key=${process.env.GOOGLE_BOOKS_API_KEY}`;
+    console.log(`getters.ts-getBookById()：url=[${url}]`);
+    const res = await fetch(url, { cache: 'no-store' });
     const result = await res.json();
     return createBook(result);
 }
