@@ -4,17 +4,19 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-
   // SQLiteを使用する場合
-  // provider = "sqlite"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 
-// PostgreSQLを使用する場合
-  provider = "postgresql"
+  // PostgreSQLを使用する場合
+  //provider = "postgresql"
+  //url      = env("DATABASE_URL")
 }
 
 model reviews {
