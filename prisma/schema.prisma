@@ -11,12 +11,12 @@ generator client {
 
 datasource db {
   // SQLiteを使用する場合
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  //provider = "sqlite"
+  //url      = env("DATABASE_URL")
 
   // PostgreSQLを使用する場合
-  //provider = "postgresql"
-  //url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model reviews {
